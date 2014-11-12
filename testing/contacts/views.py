@@ -29,7 +29,7 @@ def edit(request, contact_id=None):
     if contact_id:
         contact = get_object_or_404(Contact, pk=contact_id)
     else:
-        contact=Contact()
+        contact = Contact()
 
     if request.method == "POST":
         form = ContactForm(request.POST, instance=contact)

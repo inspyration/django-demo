@@ -1,0 +1,49 @@
+{# Load the tag library #}
+{% load bootstrap3 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery=1 %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-md-12">
+            <h1>Contact list</h1>
+        </div>
+
+        <div class="col-md-6">
+
+            <div class="dropdown">
+                <button class="btn btn-default dropdown-toggle" type="button" id="MenuContactActions" data-toggle="dropdown">
+                    Actions
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="MenuContactActions">
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="/contacts/add/">New contact</a></li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="col-md-6">
+
+            {# Display a form #}
+            <form action="" method="post" class="form">
+              {% csrf_token %}
+              {% bootstrap_form form %}
+              {% buttons %}
+                <button type="submit" class="btn btn-primary">
+                  {% bootstrap_icon "ok" %} Submit
+                </button>
+              {% endbuttons %}
+            </form>
+
+        </div>
+
+    </div>
+</div>

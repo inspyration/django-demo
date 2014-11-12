@@ -12,7 +12,7 @@ class Contact(models.Model):
     first_name = models.CharField(max_length=32)
     last_name = models.CharField(max_length=32)
     position = models.ForeignKey(Position)
-    create_date = models.DateTimeField('date created')
+    create_date = models.DateTimeField('date created', auto_now_add=True)
 
     def __str__(self):
         return "{self.first_name} {self.last_name} ({self.position})".format(self=self)
