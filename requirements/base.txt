@@ -8,3 +8,4 @@ django-debug-toolbar
 simplejson
 django_chartit
 django-extensions
+django-bootstrap3

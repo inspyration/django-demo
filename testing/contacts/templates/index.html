@@ -1,9 +1,52 @@
-{% if contacts %}
-    <ul>
-    {% for contact in contacts %}
-        <li><a href="/contacts/{{ contact.id }}/">{{ contact.first_name }} {{ contact.last_name }} ({{ contact.position.name }} | {{ contact.create_date|date:"D d M Y" }})</a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No contacts are available.</p>
-{% endif %}
+{# Load the tag library #}
+{% load bootstrap3 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery=1 %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-md-12">
+            <h1>Contact list</h1>
+        </div>
+
+        <div class="col-md-6">
+
+            <div class="dropdown">
+                <button class="btn btn-default dropdown-toggle" type="button" id="MenuContactActions" data-toggle="dropdown">
+                    Actions
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="MenuContactActions">
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="/contacts/add/">New contact</a></li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="col-md-6">
+
+            {% if contacts %}
+                <ul class="list-group">
+                {% for contact in contacts %}
+                    <li class="list-group-item">
+                        <span class="badge">{{ contact.position.name }} | {{ contact.create_date|date:"D d M Y" }}</span>
+                        {% bootstrap_icon "star" %}
+                        <a href="/contacts/{{ contact.id }}/">{{ contact.first_name }} {{ contact.last_name }}</a></li>
+                {% endfor %}
+                </ul>
+            {% else %}
+                <p>No contacts are available.</p>
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</div>
