@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django_datatables_view.base_datatable_view import BaseDatatableView
+from django.views import generic
 
 from django.db.models import Q
 
@@ -17,8 +18,9 @@ def index(request):
     )
 
 
-def show(request, contact_id=None):
-    return HttpResponse("Contacts view page.")
+class Show(generic.DetailView):
+    model = Contact
+    template_name = 'show.html'
 
 
 def edit(request, contact_id):
