@@ -14,7 +14,7 @@ def index(request):
     )
 
 
-def show(request, contact_id):
+def show(request, contact_id=None):
     return HttpResponse("Contacts view page.")
 
 
