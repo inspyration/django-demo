@@ -1,0 +1,10 @@
+Django
+django-model-utils
+django-braces
+logutils==0.3.3
+South
+psycopg2
+django-debug-toolbar
+simplejson
+django_chartit
+django-extensions
