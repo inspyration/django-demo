@@ -9,3 +9,4 @@ simplejson
 django_chartit
 django-extensions
 django-bootstrap3
+django-datatables-view
