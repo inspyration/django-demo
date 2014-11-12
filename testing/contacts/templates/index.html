@@ -1,0 +1,9 @@
+{% if contacts %}
+    <ul>
+    {% for contact in contacts %}
+        <li><a href="/contacts/{{ contact.id }}/">{{ contact.first_name }} {{ contact.last_name }} ({{ contact.position.name }} | {{ contact.create_date|date:"D d M Y" }})</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No contacts are available.</p>
+{% endif %}
