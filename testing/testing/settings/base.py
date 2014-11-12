@@ -33,7 +33,7 @@ FRAMEWORK_APPS = (
 )
 
 LOCAL_APPS = (
-    # TODO
+    "contacts",
 )
 
 INSTALLED_APPS = FRAMEWORK_APPS + LOCAL_APPS
