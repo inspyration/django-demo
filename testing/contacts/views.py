@@ -3,19 +3,46 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from django_datatables_view.base_datatable_view import BaseDatatableView
 from django.views import generic
+from django.db.models import Count, Q
 
-from django.db.models import Q
+from chartit import Chart, DataPool
 
 from .models import Contact
 from .forms import ContactForm
 
 
 def index(request):
+    ds = DataPool(
+        series=[{
+            'options': {
+                'source': Contact.objects.values('position__name').annotate(Count('position'))},
+            'terms': [
+                'position__name',
+                'position__count']
+        }]
+    )
+
+    chart = Chart(
+        datasource=ds,
+        series_options=[{
+            'options': {
+                'type': 'pie',
+                'stacking': False},
+            'terms': {
+                'position__name': ['position__count']
+            }
+        }],
+        chart_options={
+            'title': {
+                'text': 'Contacts by position'}},
+    )
+
     return render(
         request,
         "index.html",
         {
-            "contacts": Contact.objects.all().order_by("-create_date")
+            "contacts": Contact.objects.all().order_by("-create_date"),
+            "chart": chart,
         },
     )
 
@@ -35,6 +62,8 @@ def edit(request, contact_id=None):
         form = ContactForm(request.POST, instance=contact)
         if form.is_valid():
             form.save()
+            if not contact_id:
+                contact_id = Contact.objects.latest('id').id
             return HttpResponseRedirect(reverse("show", args=(contact.id,)))
     else:
         form = ContactForm(instance=contact)
